@@ -8,7 +8,8 @@ const InputShow=({input})=>{
         if(input.length>5){
             return 'green'
         }else return 'red'
-    }    
+    }
+    
     return(
         <div className={classes[color()]}>
             {input}

@@ -11,7 +11,6 @@ import Input from './components/input/Input';
 import InputShow from './components/inputShow/InputShow';
 import List from './components/list/List';
 
-
 function App() {
   const navbar=['HOME','ABOUT US','CONTACTS']
   const [show,setShow]=useState(false)
@@ -27,29 +26,23 @@ function App() {
     setShow(!show)
   }
 
-  //list
-  const lists=[
+  const tasks = [
     {
-      id:1 , 
+      id: 1,
       title: 'coding',
-      completed: false
+      completed: true
     },
     {
-      id:2,
+      id: 2,
       title: 'eat',
-      completed: false
+      completed: true
     },
     {
-      id:3,
+      id: 3,
       title: 'sleep',
       completed: false
-    },
-    {
-      id:4,
-      title: 'reading',
-      completed:true
     }
-  ]
+  ];
 
   return (
     <>
@@ -61,10 +54,10 @@ function App() {
       <CountPage/>
       <InputShow input={input}/>
       <Input placeholder={'type something'} onChangeInput={onChangeInput}/>
-
+      
       <div className="App">
-        <List lists={lists} />
-    </div>
+        <List tasks={tasks} />
+      </div>
     </>
   );
 }
