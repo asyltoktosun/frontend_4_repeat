@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import {Button} from './components/button/Button';
+import User from './components/user/User';
+import  Example  from './components/example/Example';
+import Header from './components/header/Header';
+import Text from './components/text/Text'
+import Modal from './components/modal/Modal';
+import { useState } from 'react';
+import CountPage from './page/countPage/CountPage';
+import Input from './components/input/Input';
+import InputShow from './components/inputShow/InputShow';
+
 
 function App() {
+  const navbar=['HOME','ABOUT US','CONTACTS']
+  const [show,setShow]=useState(false)
+
+  const[input, setInput]=useState('')
+
+  const onChangeInput=(event)=>{
+    setInput(event.target.value)
+
+  }
+
+  const handleShow=()=>{
+    setShow(!show)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {
+        show && <Modal handleShow={handleShow}> </Modal>
+      }
+      <button onClick={handleShow}>click</button>
+
+      <CountPage/>
+      <InputShow input={input}/>
+      <Input placeholder={'type something'} onChangeInput={onChangeInput}/>
+    </>
   );
 }
 
