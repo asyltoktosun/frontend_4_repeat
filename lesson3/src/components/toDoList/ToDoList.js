@@ -1,17 +1,16 @@
 import React from "react";
 import classes from './ToDoList.module.css';
+import ToDo from "../toDo/ToDo";
 
-const ToDoList = ({ task, onDelete }) => {
-  const handleDelete = () => {
-    onDelete(task.id);
-  };
+const ToDoList = ({ tasks, handleDelete }) => {
+  // const handleDelete = () => {
+  //   onDelete(task.id);
+  // };
 
   return (
-    <li className={classes.task}>
-      <p>id: {task.id}</p>
-      <p>title: {task.title}</p>
-      <button onClick={handleDelete}>Delete</button>
-    </li>
+    <ul className={classes.task}>
+      {tasks.map(todo=> <ToDo key={todo.id} task={todo} handleDelete={handleDelete}/>)}
+    </ul>
   );
 };
 

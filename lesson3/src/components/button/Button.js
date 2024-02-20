@@ -1,10 +1,10 @@
 import React from "react";
 import classes from './Button.module.css';
 
-export const Button=({text})=>{
+const Button=({text, onClick})=>{
     return(
         <>
-            <button className={classes.textAgua}>{text}</button>
+            <button onClick={onClick} className={classes.btn}>{text}</button>
         </>
     )
 }
