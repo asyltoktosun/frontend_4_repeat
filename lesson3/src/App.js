@@ -5,7 +5,7 @@ import  Example  from './components/example/Example';
 import Header from './components/header/Header';
 import Text from './components/text/Text'
 import Modal from './components/modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CountPage from './page/countPage/CountPage';
 import Input from './components/input/Input';
 import InputShow from './components/inputShow/InputShow';
@@ -58,6 +58,8 @@ function App() {
     }
   ])
   
+  const[originalTasks, setOriginalTasks]=useState([tasks])
+
   const handleAdd=()=>{
     setTasks(prev=>[...prev,
       {
@@ -67,22 +69,42 @@ function App() {
       }
     ] ) }
 
-    const handleDelete=(taskId)=>{
-      const updatedTasks=tasks.filter(task=>task.id !== taskId);
-      setTasks(updatedTasks)
+  const handleDone = (id) => {
+    console.log(id);
+    tasks.map(task=> {
+        if(task.id===id) {
+            return task.completed = !task.completed
+        }
+        return tasks
+    })
+    setTasks([...tasks])
+  }
 
-    }
+   
+
+  const handleDelete=(taskId)=>{
+    const updatedTasks=tasks.filter(task=>task.id !== taskId);
+    setTasks(updatedTasks)
+
+  }
 
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+  const handleSearch = (event) => {
+    const inputValue=event.target.value
+    setSearchTerm(inputValue);
+    if(inputValue===''){
+      setTasks(originalTasks)
+    }
+    else{
+      const filteredTasks = tasks.filter(task =>
+      task.title && task.title.toLowerCase().includes(searchTerm.toLowerCase()));
+      setTasks(filteredTasks)
+
+    }  
   };
 
-  const filteredTasks = tasks.filter(task =>
-    task.title && task.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <>
@@ -92,11 +114,13 @@ function App() {
           <Input 
           placeholder={"Add task"}
           onChangeInput={onChangeInput}/>    
-          <Button onClick={handleAdd} text={"Add"}/> </Modal>
+          <Button onClick={handleAdd} text={"Add"}/>
+           </Modal>
+          
         
       }
       <button onClick={handleShow}>click</button>
-
+      
       {/* <CountPage/>
       <InputShow input={input}/>
       <Input placeholder={'type something'} onChangeInput={onChangeInput}/> */}
@@ -109,7 +133,10 @@ function App() {
         value={searchTerm}
         onChange={handleSearch}/>
     </div>
-    <ToDoList tasks={filteredTasks} handleDelete={handleDelete}/>
+    <ToDoList 
+      tasks={filteredTasks} 
+      handleDelete={handleDelete} 
+      handleDone={handleDone}/>
     </>
   );
 }
