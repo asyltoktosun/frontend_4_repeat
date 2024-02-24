@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./ToDo.module.css";
 import Button from "../button/Button";
 
-const ToDo = ({ task, handleDelete, handleDone,handleCurrentEdit, isEdit ,handleEdit}) => {
+const ToDo = ({ task, handleDelete, handleDone,handleCurrentEdit, isEdit }) => {
   const [input, setInput]=useState(task.title)
   if(isEdit){
     return <div>
@@ -10,14 +10,7 @@ const ToDo = ({ task, handleDelete, handleDone,handleCurrentEdit, isEdit ,handle
         type="text"
         value={input}
         onChange={event=>setInput(event.target.value)}/>
-      <Button 
-      text={'Save'} 
-      onClick={()=>{
-        handleEdit({
-          ...task, title: input
-        })
-
-      }}/>
+      <Button text={'Save'}/>
       <Button text={'Cancel'}/>
     </div>
   }
