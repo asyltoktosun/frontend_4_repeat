@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from './ToDoList.module.css';
 import ToDo from "../toDo/ToDo";
 
-const ToDoList = ({ tasks, handleDelete,handleDone }) => {
-  // const handleDelete = () => {
-  //   onDelete(task.id);
-  // };
+const ToDoList = ({ tasks, handleDelete,handleDone, handleEdit }) => {
+  const [currentEdit,setCurrentEdit]=useState()
 
   return (
     <ul className={classes.task}>
@@ -14,7 +12,10 @@ const ToDoList = ({ tasks, handleDelete,handleDone }) => {
         key={todo.id} 
         task={todo} 
         handleDelete={handleDelete} 
-        handleDone={handleDone}/>)}
+        handleDone={handleDone}
+        handleEdit={handleEdit}
+        handleCurrentEdit={setCurrentEdit}
+        isEdit={currentEdit===todo.id}/>)}
     </ul>
   );
 };
