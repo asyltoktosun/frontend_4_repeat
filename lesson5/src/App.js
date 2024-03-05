@@ -38,8 +38,8 @@ function App() {
   const[originalTasks]=useState([...tasks])
 
   const handleAdd = () => {
-    console.log(input)
-    setTasks(prev => [
+    if(input.trim()!==''){
+      setTasks(prev => [
         ...prev,
         {
             id: tasks.length === 0 ? 1 : tasks[tasks.length - 1].id + 1,
@@ -47,6 +47,9 @@ function App() {
             completed: false
         }
     ]);
+      setInput('')
+    }
+    
   };
 
   const handleDone = (id) => {
@@ -96,28 +99,28 @@ function App() {
     }  
   };
 
-  const handleClear = ()=>{
-    localStorage.setItem('tasks', JSON.stringify([]))
-    setTasks([])
-    
-  }
-
-
 
   useEffect(()=>{
     const myLocalList =JSON.parse(localStorage.getItem('tasks'))
+
     if(myLocalList===null){
-      return localStorage.setItem('tasks', JSON.stringify(tasks))
+      return localStorage.setItem('tasks', JSON.stringify(tasks)) 
     }
     if(myLocalList.length !== 0){
-      setTasks(myLocalList)
-    }
+      setTasks(myLocalList)}
   },[])
 
   useEffect(()=>{
     localStorage.setItem('tasks', JSON.stringify(tasks))
   },[tasks])
   
+
+  const handleClear = ()=>{
+    localStorage.setItem('tasks', JSON.stringify([]))
+    setTasks([])
+    
+  }
+
   const [users, setUsers]=useState([])
 
   const getUsers=async()=>{
@@ -126,7 +129,23 @@ function App() {
     const users=await(data.json())
     setUsers(users)
   }
+  const [filterOption, setFilterOption]=useState('all')
 
+  const handleFilterChange=(event)=>{
+    setFilterOption(event.target.value)
+
+  }
+
+  const filterTasks=tasks.filter(task=>{
+    switch(filterOption){
+      case 'completed' :
+        return task.completed;
+      case 'notCompleted' :
+        return !task.completed;
+      default:
+        return true
+    }
+  })
 
   return (
     <>
@@ -144,6 +163,11 @@ function App() {
           
         
       }
+      <select value={filterOption} onChange={handleFilterChange}>
+        <option value="all">All Tasks</option>
+        <option value="completed">Complited Tasks</option>
+        <option value="notCompleted"> Not Complited Tasks</option>
+      </select>
       <button onClick={handleShow}>Click</button>
       <button onClick={handleClear}>Clear</button>
       <button onClick={getUsers}>Get Users</button>
@@ -161,7 +185,7 @@ function App() {
         onChange={handleSearch}/>
     </div>
     <ToDoList 
-      tasks={tasks} 
+      tasks={filterTasks} 
       handleDelete={handleDelete} 
       handleDone={handleDone}
       handleEdit={handleEdit}
