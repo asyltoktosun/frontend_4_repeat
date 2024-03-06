@@ -6,5 +6,18 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    
+    justify-content: space-between;
+}
+
+.btnBox, .info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.done{
+    background-color: purple;
+    text-decoration: line-through;
 }
