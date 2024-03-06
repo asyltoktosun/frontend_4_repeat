@@ -181,20 +181,6 @@ function App() {
     setLimit(event.target.value)
   }
 
-  const [pokemonList , setPokemonList]=useState([])
-
-  const getPokemonsList= async ()=>{
-    try {
-      const {data}= await axios.get('https://pokeapi.co/api/v2/pokemon/')
-      return data.results
-    }catch(e){
-      console.log('error', e.message)
-    }
-  }
-
-  useEffect(()=>{
-    getPokemonsList().then((pokemonList)=>setPokemonList(pokemonList))
-  },[])
 
   return (
     <>

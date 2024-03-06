@@ -1,0 +1,23 @@
+.list {
+    width: 600px;
+    height: 100px;
+    border: 1px solid plum;
+    color: blueviolet;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.btnBox, .info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.done{
+    background-color: purple;
+    text-decoration: line-through;
+}
