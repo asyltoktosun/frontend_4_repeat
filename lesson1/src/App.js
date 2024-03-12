@@ -1,41 +1,20 @@
+import React from 'react'
 import './App.css';
-import {Button} from './components/button/Button';
-import User from './components/user/User';
-import  Example  from './components/example/Example';
-import Header from './components/header/Header';
-import Text from './components/text/Text'
-
+import Users from './components/users/Users';
+import Title from './components/title/Title';
+import About from './components/about/About'
 
 function App() {
-  const navbar=['HOME','ABOUT US','CONTACTS']
-
+  const usersArray=['ali','asu','men']
+  const titleObject={title: "value", subtitle: "value"}
+  const aboutObject={title: "value", body: "value", link: "value"}
   return (
-    <>
-
-      <Header navbar  ={navbar}/>
-      <Text>
-          <h1>I like <span>apples</span></h1>
-      </Text>
-
-      {/* <Button text={'Open'}/>
-      <Button text={'Close'}/>
-      <Button text={'Remake'}/>
-      <User name={'Asyl'} age={19}/>
-      <Example>
-        <div>
-          <h1 className='textBlue'>Hello</h1>
-          <p style={{
-            color: 'red',
-            fontSize: '20px'
-          }}>
-            Asyl  
-          </p>
-        </div>
-      </Example> */}
-    </>
+    <div>
+      <Users users={usersArray}/>
+      <Title titleObject={titleObject}/>
+      <About aboutObject={aboutObject}/>
+    </div>
   );
 }
 
 export default App;
-
-
